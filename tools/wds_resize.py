@@ -132,7 +132,13 @@ def main():
     with ProcessPoolExecutor(a.workers) as ex:
         futs = {}
         while True:
-            s = ready.get()
+            # thu kết quả đã xong để nhả slot cho fetcher (tránh deadlock khi hàng đợi rỗng)
+            for f in [f for f in futs if f.done()]:
+                n_done, tot_ok, tot_fail = finish(f, futs.pop(f), out, raw, slots, n_done, tot_ok, tot_fail, len(todo), t0)
+            try:
+                s = ready.get(timeout=1)
+            except queue.Empty:
+                continue
             if s is None:
                 break
             if s[0] == "FAIL":
@@ -140,9 +146,6 @@ def main():
             url, rel, size, sha = s
             dst = out / rel; dst.parent.mkdir(parents=True, exist_ok=True)
             futs[ex.submit(process_shard, str(raw / rel), str(dst), a.size, a.mode, a.quality)] = rel
-            # gom kết quả đã xong mà không chặn
-            for f in [f for f in futs if f.done()]:
-                n_done, tot_ok, tot_fail = finish(f, futs.pop(f), out, raw, slots, n_done, tot_ok, tot_fail, len(todo), t0)
         for f in as_completed(list(futs)):
             n_done, tot_ok, tot_fail = finish(f, futs.pop(f), out, raw, slots, n_done, tot_ok, tot_fail, len(todo), t0)
 
