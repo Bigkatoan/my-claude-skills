@@ -41,9 +41,9 @@ adl hf:org/repo --dry-run                 # xem dung lượng trước
 ### `wds_resize.py` — tải & resize WebDataset theo luồng
 Tải từng shard bằng aria2c → resize → xoá shard gốc, nên không cần chứa cả bộ gốc. Chạy lại = tiếp tục.
 ```bash
-python3 wds_resize.py hf:pixparse/cc3m-wds -o ~/datasets/vision/cc3m_224 --size 224 --mode crop
+python3 wds_resize.py hf:pixparse/cc3m-wds -o ~/datasets/vision/cc3m_224 --size 224 --mode stretch
 ```
-Giữ caption (`.txt`) và metadata gốc (`.json`), ghi thêm `metadata.parquet`. `--mode crop|stretch|pad`.
+Giữ caption (`.txt`) và metadata gốc (`.json`), ghi thêm `metadata.parquet`. `--mode stretch` (mặc định, resize thẳng, giữ toàn bộ nội dung) | `crop` | `pad`.
 
 ## License
 MIT

@@ -28,7 +28,7 @@ adl gdrive:<id|url> -d DIR                       # Drive doesn't support aria2c 
 2. Datasets → follow the `datasets` skill: `ds find` first, and download into `~/datasets/<category>/<name>`
    (`ds get` already calls `adl`). Model weights for a single project → the project's `ckpt/` or `models/` folder.
 3. Large WebDataset that needs resizing or reprocessing (e.g. keeping only 224px images): don't download everything and then process it.
-   Use `~/datasets/_tools/wds_resize.py hf:org/repo -o OUT --size 224 --mode crop|stretch|pad` instead. It downloads each shard
+   Use `~/datasets/_tools/wds_resize.py hf:org/repo -o OUT --size 224 [--mode stretch|crop|pad]` instead. It downloads each shard
    with aria2c, processes it, deletes the original, and resumes on rerun.
 4. A failed or partial download: rerun the same command (it resumes). Don't delete `.aria2` files or partial files unless the user agrees.
 5. Use wget/curl only when aria2c genuinely can't do it (e.g. you need to POST or stream into a pipe), and say why.

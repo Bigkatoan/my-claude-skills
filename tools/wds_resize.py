@@ -3,10 +3,10 @@
 
 Không bao giờ giữ cả bộ gốc trên ổ: chỉ prefetch vài shard. Chạy lại = tiếp tục (bỏ qua shard đã xong).
 
-  wds_resize.py hf:pixparse/cc3m-wds -o ~/datasets/vision/cc3m_224 --size 224 --mode crop
+  wds_resize.py hf:pixparse/cc3m-wds -o ~/datasets/vision/cc3m_224 --size 224 --mode stretch
 
-mode:  crop    = resize cạnh ngắn -> size, center-crop size x size (mặc định, chuẩn CLIP/ImageNet)
-       stretch = resize thẳng về size x size (méo tỉ lệ)
+mode:  stretch = resize thẳng về size x size, giữ toàn bộ nội dung (mặc định; kích thước gốc lưu trong json)
+       crop    = resize cạnh ngắn -> size, center-crop (mất mép ảnh)
        pad     = giữ tỉ lệ, đệm đen thành size x size
 Mỗi mẫu giữ nguyên .txt (caption) và .json (metadata gốc) + thêm trường resize vào json.
 Cuối cùng ghi metadata.parquet (key, split, shard, caption, url, kích thước gốc, ...).
@@ -88,7 +88,7 @@ def main():
     ap.add_argument("source", help="hf:org/repo (WebDataset .tar)")
     ap.add_argument("-o", "--out", required=True)
     ap.add_argument("--size", type=int, default=224)
-    ap.add_argument("--mode", choices=["crop", "stretch", "pad"], default="crop")
+    ap.add_argument("--mode", choices=["stretch", "crop", "pad"], default="stretch")
     ap.add_argument("--quality", type=int, default=95)
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 4) - 2))
     ap.add_argument("--prefetch", type=int, default=12, help="số shard gốc tối đa nằm trên ổ cùng lúc")
