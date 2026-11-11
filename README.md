@@ -6,6 +6,8 @@ Bộ [skill](https://docs.claude.com/en/docs/claude-code/skills) cá nhân cho C
 |---|---|---|
 | [`datasets`](skills/datasets/SKILL.md) | Cần dataset: tìm, kiểm tra, tải, gắn vào dự án. Mọi dataset nằm **một bản** trong `~/datasets`, dự án dùng qua symlink. | `ds` |
 | [`aria2-download`](skills/aria2-download/SKILL.md) | Bất kỳ lần tải nào (URL, HuggingFace, Drive) → luôn dùng aria2c: đa kết nối, resume, kiểm tra size/sha256. | `adl`, `wds_resize.py` |
+| [`pytorch-training`](skills/pytorch-training/SKILL.md) | Train / fine-tune / debug training PyTorch: template `train.py` một file (bf16, accum, EMA, compile, resume, NaN guard), sanity ladder, chẩn đoán NaN/OOM/chậm, chạy job dài + monitor. | `templates/train.py` |
+| [`model-design`](skills/model-design/SKILL.md) | Thiết kế / review kiến trúc: spec → baseline → đo → test → ablation; quy ước code, ước lượng params/FLOPs/VRAM cho 12GB, block có sẵn (ConvNeXt, ResBlock-AdaGN, SDPA+RoPE, DiT adaLN-zero, VAE posterior, VQ). | `tools/model_report.py`, `blocks.py` |
 | [`manim-visualize`](skills/manim-visualize/SKILL.md) | "visualize / minh hoạ": video Manim, ưu tiên hình, gần như không chữ. | `reference.py` |
 
 ## Cài đặt
@@ -44,6 +46,13 @@ Tải từng shard bằng aria2c → resize → xoá shard gốc, nên không c�
 python3 wds_resize.py hf:pixparse/cc3m-wds -o ~/datasets/vision/cc3m_224 --size 224 --mode stretch
 ```
 Giữ caption (`.txt`) và metadata gốc (`.json`), ghi thêm `metadata.parquet`. `--mode stretch` (mặc định, resize thẳng, giữ toàn bộ nội dung) | `crop` | `pad`.
+
+### `model_report.py` — đo model trước khi train
+```bash
+python model_report.py model.py:build_model --kwargs '{"dim":256}' --input 16,3,224,224 --bf16
+python model_report.py timm:resnet50 --input 32,3,224,224 --bf16
+```
+Params theo module, shape output, FLOPs, VRAM đỉnh fwd+bwd, throughput, batch tối đa ước lượng, param không nhận grad / grad = 0 / NaN.
 
 ## License
 MIT
