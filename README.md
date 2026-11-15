@@ -9,6 +9,7 @@ Bộ [skill](https://docs.claude.com/en/docs/claude-code/skills) cá nhân cho C
 | [`pytorch-training`](skills/pytorch-training/SKILL.md) | Train / fine-tune / debug training PyTorch: template `train.py` một file (bf16, accum, EMA, compile, resume, NaN guard), sanity ladder, chẩn đoán NaN/OOM/chậm, chạy job dài + monitor. | `templates/train.py` |
 | [`model-design`](skills/model-design/SKILL.md) | Thiết kế / review kiến trúc: spec → baseline → đo → test → ablation; quy ước code, ước lượng params/FLOPs/VRAM cho 12GB, block có sẵn (ConvNeXt, ResBlock-AdaGN, SDPA+RoPE, DiT adaLN-zero, VAE posterior, VQ). | `tools/model_report.py`, `blocks.py` |
 | [`manim-visualize`](skills/manim-visualize/SKILL.md) | "visualize / minh hoạ": video Manim, ưu tiên hình, gần như không chữ. | `reference.py` |
+| [`hibiscus-design`](skills/hibiscus-design/SKILL.md) | Dự án dùng giao diện Hibiscus (letrain, Robot Ops…): lấy asset, linh vật Hibi, animation, màu sáng/tối từ repo `hibiscus-assets`, không vẽ/copy lẻ. | `hibiscus-assets/tools/sync.sh` |
 
 ## Cài đặt
 ```bash
