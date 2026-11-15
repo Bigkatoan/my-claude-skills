@@ -24,10 +24,11 @@ Mention the synced version (`src/hibiscus/VERSION`) in your summary.
 ## Use them
 ```tsx
 import './hibiscus/hibiscus.css'          // or only motion.css when the app already has its own skin
-import { Hibi, PixelAnim, Sprite, Garden, Petals } from './hibiscus/PixelAnim'
+import { Hibi, PixelAnim, PxIcon, Sprite, Garden, Petals } from './hibiscus/PixelAnim'
 
-<Hibi mood="idle|wave|happy|working|sleep|sad" scale={2} />   // mascot = robot arm holding a hibiscus
-<a className="px-hover"><PixelAnim name="icon_train" scale={2} /> Tasks</a>  // icon animates on hover
+<Hibi mood="idle|wave|happy|working|sleep|sad" size="hero|mini" />  // robot arm holding a hibiscus
+<a className="px-hover"><PixelAnim name="icon_train" /> Tasks</a>  // colour icon, animates on hover
+<button><PxIcon name="plus" /> Add</button>   // 8x8 UI glyph, currentColor
 <Garden />          // grass + swaying tufts + Hibi + butterfly (sidebar bottom)
 <Petals count={10} />  // falling petals (login / celebration), parent must be position: relative
 ```
@@ -40,6 +41,12 @@ orders, sprouting pot = tasks/training, basket = model, chip = GPU/components, s
 clock = calendar/queue, gear = settings, robot arm = products/robots).
 
 ## Rules the user has set (do not regress)
+- **One pixel unit:** 1 art pixel = 2 CSS px for every sprite, glyph, frame (8 px 9-slice border),
+  rim, shadow and movement step. No `scale` props / per-use zoom. Need another size → draw it at
+  another resolution (glyph 8×8, icon 16×16, Hibi mini 24×24, Hibi hero 48×48) in `design/`.
+- **Every icon is Hibiscus:** colour 16×16 sprites for navigation/feature icons, `PxIcon` glyphs for
+  buttons/inputs/inline. Never use lucide/heroicons/emoji icons in Hibiscus apps; if a glyph or icon
+  is missing, add it to `design/glyphs.py` / `design/icons_extra.py`, rebuild, re-sync.
 - **Readable text:** Nunito for all UI text, headings included. **No pixel fonts** (Tiny5/VT323) unless
   the user explicitly asks; they were rejected as hard to read.
 - **Dark mode:** flat indigo frames + hard shadow; never wood frames (`ui_panel_night`) on cards.
