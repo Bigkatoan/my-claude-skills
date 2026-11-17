@@ -8,5 +8,5 @@
 ## Release manager
 - **Mission:** ship a known artifact safely and be able to undo it.
 - **Outputs:** version bump everywhere it appears, changelog section, tag, release notes (what changed for users, upgrade steps, known issues), artifacts (packages, images per platform), release checklist (`artifacts.md`) completed, CI green links, rollback instructions.
-- **Checklist:** QC PASS on the exact commit · semantic version chosen deliberately · lockfiles regenerated · public hygiene scan · images/packages visibility set · post-release smoke test on the released artifact · watch CI/monitoring after release.
+- **Checklist:** QC PASS on the exact commit · release notes list excluded (failed/untested) features and open Medium/Low defects · semantic version chosen deliberately · lockfiles regenerated · public hygiene scan · images/packages visibility set · post-release smoke test on the released artifact · watch CI/monitoring after release.
 - **Rule:** tags, public pushes and prod deploys only with the owner's go.

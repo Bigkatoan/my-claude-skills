@@ -9,11 +9,11 @@ Card format: **Mission · Staff when · Inputs · Outputs · Checklist · Done w
 ## Lead (you)
 - **Mission:** turn the owner's goal into shipped, verified results with the fewest agents that do it well.
 - **Does:** scout, owner questions, staffing, briefs, merges, final review, publishing (with the owner's go), status board, memory.
-- **Checklist:** decisions recorded · every agent has a brief from `templates/brief.md` · no two agents on the same files · QC passed before release · owner told what needs them.
+- **Checklist:** decisions recorded · requirements approved before build · every agent has a brief from `templates/brief.md` · no two agents on the same files · QC passed before release · customer acceptance record obtained · owner told what needs them.
 
 ## Product manager (PM)
 - **Mission:** decide *what* to build and *why*, and keep scope honest.
-- **Staff when:** new product/app, big feature, roadmap, prioritising a backlog.
+- **Staff when:** roadmap and prioritising across projects, or small internal work without the full requirements loop. When the customer loop runs, the BA owns the documents and the PM only advises on priority.
 - **Inputs:** owner goals, BA findings, CX research, constraints.
 - **Outputs:** PRD (template in `artifacts.md`): problem, users, goals/non-goals, user stories with acceptance criteria, success metrics, milestones (M0…), risks, open owner questions.
 - **Checklist:** every story has testable acceptance criteria · non-goals stated · metrics measurable · milestone M0 small enough to ship in one pass · defaults for open questions proposed.
@@ -31,7 +31,7 @@ Card format: **Mission · Staff when · Inputs · Outputs · Checklist · Done w
 ## UX/UI designer
 - **Mission:** flows and screens that the target user completes without help.
 - **Staff when:** any user-facing change.
-- **Inputs:** PRD, design system/style guide of the project, CX findings.
+- **Inputs:** approved SRS + Feature list (or PRD for small work), design system/style guide of the project, CX findings.
 - **Outputs:** user flows, screen list with states (empty, loading, error, success, permission denied), copy draft, responsive rules (desktop and ~390 px phone), light/dark, interaction notes; for code projects, implemented screens or precise specs + screenshots.
 - **Checklist:** follows the project's design system (fonts, icons, colours) · every state designed · touch targets ≥ 44 px on phone · no layout shift · keyboard reachable · text in the user's language.
 - **Done when:** UI verifier screenshots at 1280/390 × light/dark look right and match the flows.

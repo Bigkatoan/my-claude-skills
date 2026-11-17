@@ -18,11 +18,42 @@ Customer ──► BA ──► Tech Lead + SA ──► BA ──► Customer �
 
 Repeat 1→5 until the customer approves explicitly ("duyệt", "đồng ý", "approve"). A silence or "ok tiếp đi" about something else is not approval; the BA asks.
 
+**Keep rounds short:** one round = one message from the BA with the summary and at most 4 decisions. Show UI requirements with a mockup or screenshot, not just text, because customers approve what they can see. From round 3, the BA proposes approving the Must/Should items and moving the open Could items to the **open issues list** in the baseline. Approval covers the whole set at once (BRD + SRS + Architecture + Feature list + Acceptance at the stated versions), never single documents.
+
+**Versioning:** drafts are v0.1, v0.2, … (one per round); approval = v1.0; each approved CR = v1.1, v1.2, …. `docs/requirements/CHANGELOG.md` logs every round, decision and approval with the date and the customer's words.
+
+**Existing product (no documents yet):** the BA first writes the **as-built baseline**: the features that exist today, each with its acceptance tests, marked "existing". QC runs them (that is the regression suite). The customer approves the baseline and the new requirements together.
+
 **Approval creates the baseline:** documents become v1.0, the **Approved feature list** is frozen, and only then does Build start (Architect contract → builders → QC per feature).
 
 **After the baseline:** any new or changed requirement is a **change request (CR)**. It goes through the same loop in small form (BA writes the CR with impact from Tech Lead/SA, the customer approves) and updates the Approved feature list with a new version. Builders never build unapproved items. Ideas the dev team has go to the BA as proposals, not into the code.
 
 **Scale:** a new product or big feature gets the full set. A field bug or hotfix gets a one-page CR (problem, expected behaviour, acceptance tests). If the customer's bug report already states the expected behaviour unambiguously, the report counts as approval of the CR; otherwise the BA asks first.
+
+## Who does what (R = does it, A = approves, C = consulted, I = informed)
+| Document | BA | SA | Tech Lead | QC | Customer |
+|---|---|---|---|---|---|
+| BRD | R | C | C | I | A |
+| SRS | R | C | C | C | A |
+| Architecture document | C | R | C | I | A (tech stack is the vendor's call; customer approves cost/platform impact) |
+| Feature list | R | C | R (effort, milestone) | C | A |
+| Acceptance document | R | I | C | C (testable?) | A |
+| Approved feature list | R (maintains) | I | R (dev status) | R (QC result) | A |
+| Change request | R | C | C (impact) | C | A |
+| Acceptance record (biên bản nghiệm thu) | R | I | I | R (QC report) | A (signs) |
+
+## Definition of Ready / Done (per feature)
+- **Ready to build:** approved · has ≥1 AT · effort and owner set · dependencies done or scheduled · UI has a mockup/flow · no open flag.
+- **Done (dev):** code + automated tests · works in the real UI on the target platform · docs/strings updated · handed to QC with how to test.
+- **Passed (QC):** every AT of the feature PASS on the release candidate · no open **Critical/High** defect in it · Medium/Low defects listed in the release notes.
+- **Accepted:** customer has run or watched the UAT steps and signed the acceptance record.
+
+## Defect severity (decides PASS/FAIL)
+Critical: safety risk, data/money loss, crash, cannot start · High: a main flow cannot be completed, no workaround · Medium: works with a workaround or wrong in an edge case · Low: cosmetic/text. A feature with an open Critical/High defect FAILS. **A FAIL removes the feature and every feature that depends on it** from the release. A Must feature failing blocks the release unless the customer waives in writing.
+
+## Acceptance (nghiệm thu), in two steps
+1. **QC (internal):** every approved feature against its ATs on the exact release artifact → QC report.
+2. **Customer UAT:** the BA sends the customer a short UAT list (the Must features, numbered steps, expected results, what only their hardware/platform can prove). The customer runs it or watches a recording and signs the **acceptance record**. Issues found here become defects (fix → QC → UAT again) or CRs (new wish), and the BA classifies them with the customer.
 
 ## Roles in the loop
 - **BA**: the only agent who talks to the customer about requirements. Owns BRD, SRS, Feature list, Acceptance document, round summaries, CR log. Writes in the customer's language.
@@ -104,6 +135,26 @@ AT-1 (F-1) <title>
   Preconditions · Steps (numbered, as a user does them) · Expected result · Evidence to keep (screenshot/log)
   Result: PASS / FAIL / NOT VERIFIED (why) · tester · date · artifact version
 Sign-off: QC <date>  ·  Customer acceptance <date>
+```
+
+### Traceability matrix (in FEATURES-APPROVED.md, checked by QC before release)
+| BR | FR/NFR | F | AT | QC result |
+|---|---|---|---|---|
+Every BR is covered or marked won't-do with the customer's agreement; every NFR has an AT (measured, not assumed).
+
+### Change request (BA)
+```
+CR-<n> <title> · from customer <date, quote> · type: new / change / remove / bug
+Reason · affected BR/FR/F/AT · impact (Tech Lead: effort, schedule; SA: design, risk) · options with recommendation
+Decision: approved / rejected · customer words · date · new baseline version
+```
+
+### Acceptance record (biên bản nghiệm thu)
+```
+Project · release version + install command · date · baseline v<x.y>
+| F | Feature | QC result | UAT result | Notes |
+Excluded features (failed/untested) and agreed follow-up · open Medium/Low defects · waivers
+Customer acceptance: "<customer's words>" · date
 ```
 
 ### Round summary (BA → customer, in chat)

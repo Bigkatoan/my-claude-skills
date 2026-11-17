@@ -5,15 +5,15 @@ All quality roles are **independent**: brief them with the goal, the acceptance 
 ## QA engineer (quality assurance, during development)
 - **Mission:** find defects early and prove fixes with tests.
 - **Staff when:** every feature; one QA per area (backend/safety, UI/e2e) when large.
-- **Inputs:** PRD/acceptance criteria, contract, running app (mock/staging), code.
+- **Inputs:** SRS + Acceptance document (ATs), contract, running app (mock/staging), code.
 - **Outputs:** test plan (template in `artifacts.md`), automated tests added to the repo, exploratory session notes, defect list (steps · expected · actual · severity · evidence), fixes as separate commits with failing-first tests when allowed to fix, screenshots for UI.
 - **Checklist:** happy path, edge cases, invalid input, permissions per role, concurrency (two users/two tabs), reload/back/offline mid-flow, limits (huge/long/deep input), time zones, i18n, error messages · UI at 1280 and 390 px, light and dark, every state.
-- **Done when:** every acceptance criterion has a passing test or a listed reason why not.
+- **Done when:** every AT of the features in this build has a passing automated or manual test, or a listed reason why not, before the feature goes to QC.
 
 ## QC inspector (quality control, release gate)
 - **Mission:** nothing reaches a user that a user would find broken in the first 10 minutes. QC **owns escaped defects**: every bug a user reports in a flow QC signed off is a QC miss and gets an escape review.
 - **Staff when:** before **every** release, patch, hotfix, deploy, launch or hand-over to the owner. No exceptions for "urgent" or "small". A hotfix gets the short gate (below), never no gate.
-- **Inputs:** PRD acceptance criteria, QC checklist (`artifacts.md`), the **exact artifact users will install** (wheel/image/URL, not the dev tree), the product's **golden-path list** and **regression list**, QA report.
+- **Inputs:** Approved feature list + Acceptance document (ATs), traceability matrix, QC checklist (`artifacts.md`), the **exact artifact users will install** (wheel/image/URL, not the dev tree), the product's **golden-path list** and **regression list**, QA report.
 - **Feature gate:** QC tests **every** feature on the Approved feature list against its acceptance tests (`requirements.md`) and fills the QC result column. PASS → may ship. FAIL or not tested → **not in the final product** (not merged, or disabled and hidden), listed in the release notes. Before approval QC also reviews the Acceptance document: every AT must be executable as written.
 - **Responsibilities (in this order):**
   1. **Install like the user.** Fresh environment, the released install command, the target OS. Platforms QC cannot reach (Windows, real hardware) are listed as NOT VERIFIED, never assumed.
@@ -43,7 +43,7 @@ All quality roles are **independent**: brief them with the goal, the acceptance 
 ## Accessibility reviewer
 - **Checklist:** keyboard-only path through main flows · focus visible · labels for inputs/icons · contrast in light and dark · reduced motion respected · screen-reader names for key controls · zoom 200% without horizontal scroll.
 
-## UAT / field test coordinator
-- **Mission:** prepare what only the owner/real users/real hardware can verify.
+## UAT / field test coordinator (usually the BA)
+- **Mission:** prepare the customer's UAT (acceptance step 2 in `requirements.md`) and what only the owner/real users/real hardware can verify.
 - **Outputs:** UAT checklist with numbered steps, expected result and a checkbox each, safety precautions, how to collect evidence (photo, log file path), how to roll back.
 - **Done when:** the owner can run it without asking questions.

@@ -21,7 +21,7 @@ Every engineering brief also carries: repo/worktree/branch, files owned, hard ru
 ## Architect (build contract; usually the SA)
 - **Mission:** fix the contract so several teams can build in parallel without stepping on each other.
 - **Staff when:** ≥2 builders, a new service/app, an API between apps, a risky refactor.
-- **Inputs:** PRD, BA rules, existing code and conventions.
+- **Inputs:** approved BRD/SRS/Architecture document, BA rules, existing code and conventions.
 - **Outputs (committed on the integration branch):** data models/schemas; API routes with final request/response models returning 501; event/message types; state machine names and transition table; generated client/types; spec section "Implementation map" (module layout, **file ownership per team**, storage layout, exact interface signatures); decisions the spec didn't state.
 - **Checklist:** all checks green with stubs · ownership map has no overlaps · interfaces cover every cross-team call · error codes stable.
 - **Done when:** each team can start from the contract alone.

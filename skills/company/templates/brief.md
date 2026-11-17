@@ -7,7 +7,7 @@
 
 ## Where
 - Repo `<abs path>`, worktree `<abs path>` on branch `<branch>` (create: `git -C <repo> worktree add <path> -b <branch> <base>`), base `<commit>`.
-- Read first: `<PRD/spec>`, `<contract>`, `<style guide>`, `<backlog>`, `<entry points>`.
+- Read first: `docs/requirements/` (BRD, SRS, Architecture, FEATURES-APPROVED, ACCEPTANCE) or `<spec>`, `<contract>`, `<style guide>`, `<backlog>`, `<entry points>`.
 - Files you own: <list/glob>. Files others own: <list>. Need a change there? Say so in your report.
 
 ## Decisions already made

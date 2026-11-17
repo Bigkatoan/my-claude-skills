@@ -13,14 +13,14 @@ Invoking this skill is the user's opt-in to multi-agent work: use the Agent tool
 | File | Use it for |
 |---|---|
 | `roles/leadership-product.md` | Owner, Lead, PM, BA, UX/UI designer, CX researcher, content/localisation |
-| `roles/engineering.md` | Architect, backend, frontend, mobile, data/ML, integrator, DevOps/SRE, DBA/migration, hardware/embedded |
+| `roles/engineering.md` | Solution architect (SA), Tech Lead, build-contract architect, backend, frontend, mobile, data/ML, integrator, DevOps/SRE, DBA/migration, hardware/embedded |
 | `roles/quality.md` | QA, QC, security, performance, accessibility, UAT/field test |
 | `roles/business.md` | Marketing/SEO, sales, customer support, legal/compliance, finance/pricing, operations/supply |
 | `roles/docs-release.md` | Technical writer, release manager |
-| `requirements.md` | **The requirements loop** (Customer → BA → Tech Lead + SA → BA → Customer until approved) and the templates: BRD, SRS, Architecture, Feature list, Approved feature list, Acceptance document, round summary |
+| `requirements.md` | **The requirements loop** (Customer → BA → Tech Lead + SA → BA → Customer until approved), RACI, Definition of Ready/Done, defect severity, two-step acceptance, and templates: BRD, SRS, Architecture, Feature list, Approved feature list + traceability, Acceptance document, CR, acceptance record, round summary |
 | `playbooks.md` | Ready-made line-ups: new product, feature, audit/polish, launch, release/deploy, incident, migration/split, bug from the field |
 | `templates/brief.md` | The brief every agent gets |
-| `templates/artifacts.md` | PRD, user story + acceptance criteria, test plan, QC checklist, release checklist, launch plan, status board, retro |
+| `templates/artifacts.md` | PRD (short form for small internal work), user story + acceptance criteria, test plan, QC checklist, release checklist, launch plan, status board, retro |
 | `templates/workflow.js` | Workflow skeleton: contract → parallel builders → integrator → verifiers |
 
 Read the role cards you staff (only those) before writing their briefs: each card has the mission, inputs, outputs, checklist and "done when" to paste into the brief.
@@ -41,7 +41,7 @@ Read the role cards you staff (only those) before writing their briefs: each car
    | Build | builders (parallel worktrees), Tech Lead | **every** approved feature implemented with tests, all checks green |
    | Integrate | Integrator | merged branch, owner's example works end to end |
    | Verify | QA, security, perf, a11y (parallel, independent) | findings fixed with tests or listed as risks |
-   | Accept | **QC** (+ customer UAT for hardware/money) | **every** approved feature tested against its acceptance tests; PASS/FAIL per feature; QC checklist signed |
+   | Accept | **QC**, then **customer UAT** | QC: **every** approved feature tested against its ATs on the release artifact, PASS/FAIL per feature. Customer: UAT on the Must features → signed acceptance record (biên bản nghiệm thu) |
    | Release | DevOps/SRE, release manager, writer | versioned release, rollback plan, docs, changelog |
    | Launch & support | marketing, sales, CX/support | launch plan, FAQ, support macros, feedback loop |
    | Retro | Lead | what to keep/change; memory updated |
@@ -57,7 +57,7 @@ Read the role cards you staff (only those) before writing their briefs: each car
 - **Every fix = its own commit + a test that failed before.**
 - **No release without a QC report.** Every release, patch and hotfix: QC tests the exact artifact users install, on the golden paths and the regression list (`roles/quality.md`). The Lead may not skip or overrule QC; urgency is the owner's call (waiver in the release notes), not the Lead's.
 - **Every user-found bug triggers a QC escape review** and grows the regression list. Tell the owner what was missed and what check now covers it.
-- **QA ≠ QC.** QA hunts defects during development (tests, exploratory, e2e). QC is the release gate: it checks the finished product against the PRD's acceptance criteria and the QC checklist and says PASS/FAIL per item. Nothing ships on a QC FAIL without the owner's explicit waiver.
+- **QA ≠ QC.** QA hunts defects during development (tests, exploratory, e2e). QC is the release gate: it checks the finished product against the Approved feature list's acceptance tests and the QC checklist and says PASS/FAIL per item. QC PASS is internal; the customer's UAT sign-off is the acceptance. Nothing ships on a QC FAIL without the owner's explicit waiver.
 - **Evidence over claims.** Screenshots, logs, test counts, CI links. Open a few screenshots yourself before reporting.
 - **Public or irreversible actions** (push to a public repo, deploy to prod, publish, send messages, spend money, touch live customer data) need the owner's go. Before anything public: scan for personal emails, home paths, internal hostnames, tokens; run a secret scanner.
 - **Prod changes** go through a script with backup, smoke checks and automatic rollback, and wait for running jobs.
@@ -71,4 +71,4 @@ Read the role cards you staff (only those) before writing their briefs: each car
 - When something fails, say so plainly with the evidence and the plan.
 
 ## After the work
-Merge only what passed QC; delete finished worktrees/branches; stop test servers; remove test containers/images; update memory (decisions, where things live, what's pending); watch CI to the end and report the final colour.
+Merge only what passed QC; get the customer's acceptance record; delete finished worktrees/branches; stop test servers; remove test containers/images; update memory (decisions, where things live, what's pending); watch CI to the end and report the final colour.

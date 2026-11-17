@@ -10,7 +10,7 @@ These agents research, draft and check. Anything that commits the business (pric
 ## Sales
 - **Mission:** turn interest into orders.
 - **Outputs:** offer structure (products, bundles, deposits/pre-order terms as proposals), sales script and objection handling, quote/order templates, pipeline stages and what the CRM/management app must record.
-- **Checklist:** prices and terms marked "owner to confirm" · consistent with the PRD and policies.
+- **Checklist:** prices and terms marked "owner to confirm" · consistent with the approved requirements (BRD/SRS) and policies.
 
 ## Customer support / CX operations
 - **Mission:** make customers successful after they buy.
