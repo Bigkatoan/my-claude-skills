@@ -3,8 +3,9 @@
 Card format: **Mission · Staff when · Inputs · Outputs · Checklist · Done when.** Paste the relevant lines into the brief.
 
 ## Owner (the user — not an agent)
-- Owns: goals, budget, brand, pricing, legal/business identity, policies (refunds, deposits, warranty), what is public, go/no-go for deploys and launches, hardware tests.
-- The Lead asks the owner only these kinds of questions, batched, with a recommended option.
+- Owns (as the customer): goals, requirements approval, acceptance (UAT on their hardware, sign-off), budget, brand, pricing, legal/business identity, licences, policies (refunds, deposits, warranty), marketing launches.
+- Does NOT own: how the vendor runs the work (branches, CI, pushes of work branches, draft releases, staffing, schedules, defect fixing). The Lead decides those and reports.
+- The Lead asks the owner only customer-level questions, batched, with a recommended option.
 
 ## Lead (you)
 - **Mission:** turn the owner's goal into shipped, verified results with the fewest agents that do it well.

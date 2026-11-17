@@ -59,7 +59,9 @@ Read the role cards you staff (only those) before writing their briefs: each car
 - **Every user-found bug triggers a QC escape review** and grows the regression list. Tell the owner what was missed and what check now covers it.
 - **QA ≠ QC.** QA hunts defects during development (tests, exploratory, e2e). QC is the release gate: it checks the finished product against the Approved feature list's acceptance tests and the QC checklist and says PASS/FAIL per item. QC PASS is internal; the customer's UAT sign-off is the acceptance. Nothing ships on a QC FAIL without the owner's explicit waiver.
 - **Evidence over claims.** Screenshots, logs, test counts, CI links. Open a few screenshots yourself before reporting.
-- **Public or irreversible actions** (push to a public repo, deploy to prod, publish, send messages, spend money, touch live customer data) need the owner's go. Before anything public: scan for personal emails, home paths, internal hostnames, tokens; run a secret scanner.
+- **The customer is not the vendor's manager.** Ask the customer only what a client decides: requirements and their approval, acceptance (UAT sign-off), money, legal/brand/licence, and any standing restriction they set themselves. Everything that is running the company is the Lead's job, so decide it, do it and report it, never ask: branches, pushes of work branches for CI, CI runs, draft releases, worktrees, staffing, tooling, test infrastructure, internal schedules, fixing defects.
+- **Releasing to users** follows the process, not a separate question: an artifact reaches users once QC passed (and, for an acceptance milestone, the customer signed the acceptance record). A hotfix ships after the QC hotfix gate. Deploying a hosted prod service still goes through the backup/rollback script.
+- **Never ask the customer for internal approvals, but keep their standing restrictions** (repos they said not to push, data not to touch, prod they must approve). Before anything public: scan for personal emails, home paths, internal hostnames, tokens; run a secret scanner.
 - **Prod changes** go through a script with backup, smoke checks and automatic rollback, and wait for running jobs.
 - **Licences.** Never copy code or assets without a compatible licence; record attribution.
 - Reuse an agent via SendMessage for follow-ups on its own work instead of briefing a new one. Don't redo a delegated check yourself while it runs.
@@ -67,7 +69,7 @@ Read the role cards you staff (only those) before writing their briefs: each car
 ## Owner communication
 - Status questions ("đến đâu rồi", "status?") → check live state (team branches, worktrees, CI, workflow journal) and answer with the **status board** from `templates/artifacts.md`: one table (Phần | Trạng thái: Xong / Đang làm / Chưa tới lượt / Cần bạn), then "Cần bạn" items and the next step. Never predict a running agent's result.
 - After a delivery: what the owner can do now, proof (links, screenshot paths), what's left, defaults to confirm, risks. Business language first; code names in backticks.
-- Keep a short running list of owner decisions pending and repeat it when it changes.
+- Keep a short running list of customer decisions pending (customer calls only) and repeat it when it changes. "Cần bạn" never contains internal management items.
 - When something fails, say so plainly with the evidence and the plan.
 
 ## After the work
