@@ -45,11 +45,26 @@ Repeat 1→5 until the customer approves explicitly ("duyệt", "đồng ý", "a
 ## Definition of Ready / Done (per feature)
 - **Ready to build:** approved · has ≥1 AT · effort and owner set · dependencies done or scheduled · UI has a mockup/flow · no open flag.
 - **Done (dev):** code + automated tests · works in the real UI on the target platform · docs/strings updated · handed to QC with how to test.
-- **Passed (QC):** every AT of the feature PASS on the release candidate · no open **Critical/High** defect in it · Medium/Low defects listed in the release notes.
+- **Passed (QC):** every AT of the feature PASS on the release candidate · **zero open defects of any severity** in it · every NFR that applies is measured and met · the quality standard below is met.
 - **Accepted:** customer has run or watched the UAT steps and signed the acceptance record.
 
-## Defect severity (decides PASS/FAIL)
-Critical: safety risk, data/money loss, crash, cannot start · High: a main flow cannot be completed, no workaround · Medium: works with a workaround or wrong in an edge case · Low: cosmetic/text. A feature with an open Critical/High defect FAILS. **A FAIL removes the feature and every feature that depends on it** from the release. A Must feature failing blocks the release unless the customer waives in writing.
+## Zero-defect release rule
+Severity sets the **fix order**, never what may ship: Critical (safety risk, data/money loss, crash, cannot start) → High (a main flow cannot be completed) → Medium (workaround needed, wrong in an edge case) → Low (cosmetic, wording, layout).
+- A feature with **any** open defect, Low included, **FAILS** and is not shipped. **A FAIL removes the feature and every feature that depends on it** from the release.
+- A release ships only when every included feature passed and **no known defect is open** in the product. A Must feature that failed blocks the whole release.
+- The only exception is the **customer's written waiver for a specific defect id** (never "ship anyway" in general). The Lead and QC cannot waive. Every waived defect is listed in the release notes and the acceptance record with its planned fix version.
+- A defect is closed only when the fix has a test that failed before, QC re-ran the feature's ATs on the new build, and the regression list still passes.
+
+## Quality standard (every output, checked by QC on top of the ATs)
+- **Function:** all ATs PASS on the exact artifact users install, on every target platform (a platform QC cannot reach is NOT VERIFIED, which counts as not passed until the customer's UAT proves it).
+- **Robustness:** stop/e-stop → continue, unplug/replug, reload mid-flow, wrong step order, rerun after failure, invalid input: no crash, no dead end, a clear message and a way out.
+- **Correct information:** every number, unit, label and status the user sees is true and plausible; no placeholder, debug or raw error text.
+- **UI:** design system respected; every state (empty, loading, error, success, disabled with reason) designed; desktop and phone width; light and dark; text in the user's language with no mixed terms or typos.
+- **Accessibility:** keyboard path through main flows, visible focus, labelled controls, contrast in both themes.
+- **Performance:** NFR targets measured (latency, startup time, memory, frame rate for control loops) and met.
+- **Security and safety:** security findings closed; safety paths tested on every motion feature.
+- **Code:** lint, types and the full test suite clean with no skipped tests that hide failures; CI green on every target OS.
+- **Docs and release:** user guide and changelog match the release; install command works fresh; version identical everywhere; licences and attribution present; no secrets or personal data; rollback tested.
 
 ## Acceptance (nghiệm thu), in two steps
 1. **QC (internal):** every approved feature against its ATs on the exact release artifact → QC report.
@@ -153,7 +168,7 @@ Decision: approved / rejected · customer words · date · new baseline version
 ```
 Project · release version + install command · date · baseline v<x.y>
 | F | Feature | QC result | UAT result | Notes |
-Excluded features (failed/untested) and agreed follow-up · open Medium/Low defects · waivers
+Excluded features (failed/untested) and agreed follow-up · waived defects (id, customer's words, planned fix version), normally none
 Customer acceptance: "<customer's words>" · date
 ```
 
