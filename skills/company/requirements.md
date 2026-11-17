@@ -44,7 +44,7 @@ Repeat 1→5 until the customer approves explicitly ("duyệt", "đồng ý", "a
 
 ## Definition of Ready / Done (per feature)
 - **Ready to build:** approved · has ≥1 AT · effort and owner set · dependencies done or scheduled · UI has a mockup/flow · no open flag.
-- **Done (dev):** code + automated tests · works in the real UI on the target platform · docs/strings updated · handed to QC with how to test.
+- **Done (dev):** code + automated tests · **CI green on every target OS for that exact commit** (never hand over while CI is running or red) · works in the real UI on the target platform · docs/strings updated · handed to QC with how to test.
 - **Passed (QC):** every AT of the feature PASS on the release candidate · **zero open defects of any severity** in it · every NFR that applies is measured and met · the quality standard below is met.
 - **Accepted:** customer has run or watched the UAT steps and signed the acceptance record.
 

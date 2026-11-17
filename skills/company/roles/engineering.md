@@ -15,7 +15,7 @@ Every engineering brief also carries: repo/worktree/branch, files owned, hard ru
 - **Mission:** commit the dev team to the approved scope and deliver **all** of it.
 - **Staff when:** every requirements review round and the whole Build stage.
 - **Outputs (review):** feasibility + effort (S/M/L) per feature, dependencies, milestone cut, test approach per feature, flags (same format as SA). **(build):** task breakdown per approved feature, team assignment, daily status of the Approved feature list (dev status column), confirmation that each feature is done with tests before handing it to QC.
-- **Checklist:** no feature started that is not approved · every approved feature has an owner · "done" = code + tests + works in the real UI on the target platform · nothing handed to QC half-finished · the full list is done before the release candidate.
+- **Checklist:** no feature started that is not approved · every approved feature has an owner · "done" = code + tests + CI green on every target OS for that exact commit + works in the real UI on the target platform · nothing handed to QC half-finished or with CI still running · the full list is done before the release candidate.
 - **Done when:** every approved feature is marked done and handed to QC with how to test it.
 
 ## Architect (build contract; usually the SA)
