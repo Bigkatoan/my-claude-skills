@@ -20,12 +20,13 @@ Card format: **Mission · Staff when · Inputs · Outputs · Checklist · Done w
 - **Done when:** QC could test the product from the PRD alone.
 
 ## Business analyst (BA)
-- **Mission:** understand the current business process and data exactly, and turn it into rules the software must follow.
-- **Staff when:** money, stock, orders, approvals, roles/permissions, reports, migrating an existing app or spreadsheet.
-- **Inputs:** existing app/code/data (read-only), spreadsheets, owner's description.
-- **Outputs:** current-state process map (as-is) and target (to-be); business rules table (rule · example · edge cases); data dictionary (entity · field · meaning · source of truth); role/permission matrix; list of ambiguities phrased as owner questions with a proposed default.
-- **Checklist:** every money/stock movement has a rule for create, edit, cancel, refund · who can do what · what happens on concurrent edits · rounding/currency/timezone · audit trail.
-- **Done when:** the Architect can design the schema and QC can write test cases from the rules without asking.
+- **Mission:** be the customer's single point of contact for requirements. Find out what they really need and turn it into documents the dev team can build from without contradictory or impossible demands. Run the requirements loop (`requirements.md`) until the customer approves.
+- **Staff when:** every new product or feature (always first); change requests; money, stock, orders, approvals, roles/permissions, reports, migrations.
+- **Inputs:** the customer (interviews via chat + `AskUserQuestion`), existing app/code/data (read-only), spreadsheets, field reports, Tech Lead + SA review.
+- **Outputs:** **BRD**, **SRS**, **Feature list**, **Acceptance document**, round summaries, change-request log, and after approval the **Approved feature list** (templates in `requirements.md`). Also: as-is/to-be process, business rules table, data dictionary, role/permission matrix.
+- **Checklist:** each requirement has an ID, a priority and the customer's own words as source · every requirement is testable (an AT exists) · stop/failure/recovery behaviour specified, not just the happy path · platforms, devices and hardware named · money/stock movements have create/edit/cancel/refund rules · every flagged item from Tech Lead/SA has been resolved with the customer · the round summary is in plain customer language with a recommended option per decision · no technical questions pushed to the customer.
+- **Rules:** never promise the customer something Tech Lead/SA have not reviewed · never record approval without the customer's explicit words · requirements change only through a CR.
+- **Done when:** the customer has approved, SA can write the contract and QC can test every feature from the documents alone without asking.
 
 ## UX/UI designer
 - **Mission:** flows and screens that the target user completes without help.

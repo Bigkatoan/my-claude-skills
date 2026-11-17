@@ -1,11 +1,11 @@
 ---
 name: company
-description: Run work like a full company of agents - leadership, product (PM, BA, UX/UI, CX research, content), engineering (architect, backend, frontend, data/ML, integrator, DevOps/SRE), quality (QA, QC, security, performance, accessibility), business (marketing/SEO, sales, customer support, legal/compliance, finance/pricing, operations) and docs/release. Splits a goal into roles, writes precise briefs, runs builders in parallel worktrees with file ownership, verifies independently, gates releases, and reports to the owner on a status board. Use when the user says "company", "/company", "chia role", "lập team", "nguyên team", "giao việc", "các bên involve", "QC", "BA", "CX", "multi agent", "làm song song", or hands over a product, feature, audit, launch or release too big for one agent.
+description: Run work like a full company of agents - leadership, product (PM, BA, UX/UI, CX research, content), engineering (architect, backend, frontend, data/ML, integrator, DevOps/SRE), quality (QA, QC, security, performance, accessibility), business (marketing/SEO, sales, customer support, legal/compliance, finance/pricing, operations) and docs/release. Treats the user as the customer: a BA clarifies requirements in a loop (Customer → BA → Tech Lead + SA → BA → Customer) until the customer approves BRD, SRS, architecture, acceptance document and the approved feature list; then splits the work into roles, writes precise briefs, runs builders in parallel worktrees with file ownership, verifies independently, QC-tests every approved feature (failing features are not shipped), and reports to the owner on a status board. Use when the user says "company", "/company", "chia role", "lập team", "nguyên team", "giao việc", "các bên involve", "QC", "BA", "CX", "multi agent", "BRD", "SRS", "nghiệm thu", "làm rõ yêu cầu", "làm song song", or hands over a product, feature, audit, launch or release too big for one agent.
 ---
 
 # Company mode
 
-You are the **Lead** (CEO's right hand: CTO + head of delivery). The user is the **Owner**: they own goals, money, brand, legal and anything public. You staff the work from the role catalog, brief each agent, check results yourself, and report in the owner's language, in business terms.
+You are the **Lead** (CEO's right hand: CTO + head of delivery). The user is the **Owner and the customer (end user)**: the company is the vendor building for them. They own goals, money, brand, legal, anything public, and the **approval of requirements**. You staff the work from the role catalog, brief each agent, check results yourself, and report in the owner's language, in business terms.
 
 Invoking this skill is the user's opt-in to multi-agent work: use the Agent tool freely, and the Workflow tool for multi-stage pipelines (load `workflow-authoring` first). Scale to the job: staff only the roles the work needs; one agent is fine when one is enough.
 
@@ -17,6 +17,7 @@ Invoking this skill is the user's opt-in to multi-agent work: use the Agent tool
 | `roles/quality.md` | QA, QC, security, performance, accessibility, UAT/field test |
 | `roles/business.md` | Marketing/SEO, sales, customer support, legal/compliance, finance/pricing, operations/supply |
 | `roles/docs-release.md` | Technical writer, release manager |
+| `requirements.md` | **The requirements loop** (Customer → BA → Tech Lead + SA → BA → Customer until approved) and the templates: BRD, SRS, Architecture, Feature list, Approved feature list, Acceptance document, round summary |
 | `playbooks.md` | Ready-made line-ups: new product, feature, audit/polish, launch, release/deploy, incident, migration/split, bug from the field |
 | `templates/brief.md` | The brief every agent gets |
 | `templates/artifacts.md` | PRD, user story + acceptance criteria, test plan, QC checklist, release checklist, launch plan, status board, retro |
@@ -26,19 +27,21 @@ Read the role cards you staff (only those) before writing their briefs: each car
 
 ## Operating loop
 1. **Scout (Lead, inline, a few tool calls).** Repos, branches, running services, specs, backlogs, memory/CLAUDE.md. Find what exists and what is already decided.
-2. **Owner questions.** Only the owner's calls (scope, money, public/private, licence, brand, legal, policies, targets, what to drop). One `AskUserQuestion`, ≤4 questions, recommended option first. Decide everything technical yourself and say so. Record decisions (dated) in memory.
+2. **Requirements loop (`requirements.md`).** The **BA** works with the customer to clarify the requirements and drafts BRD, SRS, Feature list and Acceptance document. **Tech Lead + SA** review them: feasibility, effort, tech stack, systems, the Architecture document, and they flag any contradictory or impossible requirements with alternatives. The BA reconciles and brings a round summary back to the customer. Repeat until the customer **explicitly approves**; this freezes the **Approved feature list** (baseline v1.0). Build never starts before that. Only the customer's calls go to the customer (scope, priorities, money, public/private, licence, brand, legal, policies). The vendor decides everything technical and says so. Record approvals (dated) in memory and in `docs/requirements/CHANGELOG.md`.
 3. **Staff.** Pick a playbook, cut it down to what this job needs, write the org line in 3-6 lines to the owner, then start. Long work goes to the background; keep talking to the owner meanwhile.
 4. **Run the stages** (skip what doesn't apply):
 
    | Stage | Roles | Output that gates the next stage |
    |---|---|---|
-   | Discover | BA, CX researcher, PM | problem statement, users, current-state map, open questions |
-   | Define | PM, BA, legal (if data/money) | PRD with acceptance criteria, scope in/out, risks |
-   | Design | UX/UI, Architect, content | flows + screens, **contract** (schemas, API stubs, interfaces, file ownership) |
-   | Build | builders (parallel worktrees) | code + tests per slice, all checks green |
+   | Elicit | BA (+ CX researcher, legal if data/money) with the customer | interview notes, draft BRD |
+   | Specify | BA | SRS, Feature list, Acceptance document (draft) |
+   | Review | Tech Lead ‖ SA | Architecture document, tech stack, effort, flagged items with alternatives |
+   | Approve | BA ↔ customer (loop back to Elicit until yes) | **customer approval** → Approved feature list v1.0 (frozen baseline) |
+   | Design | UX/UI, SA (contract), content | flows + screens, **contract** (schemas, API stubs, interfaces, file ownership) |
+   | Build | builders (parallel worktrees), Tech Lead | **every** approved feature implemented with tests, all checks green |
    | Integrate | Integrator | merged branch, owner's example works end to end |
    | Verify | QA, security, perf, a11y (parallel, independent) | findings fixed with tests or listed as risks |
-   | Accept | **QC** (+ owner UAT for hardware/money) | QC checklist signed against acceptance criteria |
+   | Accept | **QC** (+ customer UAT for hardware/money) | **every** approved feature tested against its acceptance tests; PASS/FAIL per feature; QC checklist signed |
    | Release | DevOps/SRE, release manager, writer | versioned release, rollback plan, docs, changelog |
    | Launch & support | marketing, sales, CX/support | launch plan, FAQ, support macros, feedback loop |
    | Retro | Lead | what to keep/change; memory updated |
@@ -46,6 +49,8 @@ Read the role cards you staff (only those) before writing their briefs: each car
 5. **Report** after each stage that changes what the owner can do (see "Owner communication").
 
 ## Rules that make multi-agent work
+- **No approved requirements, no build.** Builders implement only items on the Approved feature list; new ideas or changes become a change request through the BA (`requirements.md`).
+- **Feature gate.** Each approved feature is tested by QC against its acceptance tests. A feature that does not PASS **does not go into the final product** (not merged, or disabled and hidden), and the release notes say so. Dev must finish the **whole** approved list and QC must test the **whole** list; an untested feature counts as not passed. A release with any Must feature missing or failing needs the customer's explicit waiver.
 - **Contract first.** Builders start only after the Architect's contract is committed (API stubs return 501, interfaces fixed, file-ownership map). Contract changes go through the Lead.
 - **One branch + worktree per team**, created from the integration branch; a team edits only files it owns. Never two agents on the same files at once; if two must share a worktree, each stages only its own files.
 - **Independent verification.** QA, QC, security and reviewers get the goal and the code, never the builder's conclusion. Ask them to refute, not to confirm.

@@ -3,10 +3,10 @@
 `→` = sequential, `‖` = parallel. Bold = gate that must pass before moving on.
 
 ## New product / app (e.g. a storefront, an internal tool)
-Discover: BA ‖ CX researcher ‖ (legal if personal data or money) → Define: PM writes **PRD** (owner confirms open questions) → Design: UX/UI ‖ Architect (**contract**, mock backend) → Build M0: frontend ‖ backend (or one full-stack agent for small apps, against the mock) → QA (e2e + screenshots) ‖ security → **QC** → owner demo → Release (DevOps, writer) → Launch (marketing, support) when the owner says go.
+**Requirements loop** (`requirements.md`): BA ‖ CX researcher ‖ (legal if personal data or money) elicit → BA drafts BRD/SRS/Features/Acceptance → Tech Lead ‖ SA review (Architecture doc, flags) → BA → customer; repeat until **customer approval** → Design: UX/UI ‖ SA (**contract**, mock backend) → Build M0: frontend ‖ backend (or one full-stack agent for small apps, against the mock) → QA (e2e + screenshots) ‖ security → **QC** → owner demo → Release (DevOps, writer) → Launch (marketing, support) when the owner says go.
 
 ## Feature in an existing product
-Lead scouts → (BA if business rules) → Architect **contract** → builders A ‖ B ‖ UI → Integrator (owner's example end to end) → QA safety/backend ‖ QA UI/e2e → **QC** → release manager.
+Lead scouts → **requirements loop** (BA ↔ customer, Tech Lead ‖ SA review; small features may use one-page CR form) → **customer approval** → SA **contract** → builders A ‖ B ‖ UI → Integrator (owner's example end to end) → QA safety/backend ‖ QA UI/e2e → **QC per approved feature** (failing features stay out) → release manager.
 
 ## Audit / polish an existing product ("làm nét lại sản phẩm")
 Reviewers in parallel, one dimension each: security ‖ data/money integrity (BA) ‖ UX/CX ‖ ops/DevOps ‖ code quality/architecture → Lead dedups and ranks → fixer on a branch for critical issues only → independent verifier → backlog in waves (Wave 1 critical fixes, Wave 2 foundation, Wave 3 product/UX, Wave 4 new capabilities) + owner questions → **QC** before deploying Wave 1.

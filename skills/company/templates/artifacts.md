@@ -1,5 +1,7 @@
 # Artifact templates
 
+Requirement documents (BRD, SRS, Architecture, Feature list, Approved feature list, Acceptance) live in `requirements.md`. The PRD below is the PM's short form for small internal work.
+
 ## PRD (PM)
 ```
 # <Product/feature> — PRD v0.1 (<date>)
@@ -31,7 +33,7 @@ Exit criteria: all criteria covered, no open critical/high defects
 ## QC checklist (release gate)
 | # | Item | Result | Evidence |
 |---|---|---|---|
-| 1 | Every PRD acceptance criterion passes on the release candidate (commit/image `<id>`) | | |
+| 1 | Every feature on the Approved feature list tested against its ATs on the release candidate (`<id>`); failing/untested features excluded and listed | | |
 | 2 | Full CI green on that commit | | |
 | 3 | Main flow done by hand as a real user (desktop + phone, light + dark) | | |
 | 4 | Error and empty states readable, in the user's language | | |
