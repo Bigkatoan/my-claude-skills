@@ -12,6 +12,29 @@ Card format: **Mission · Staff when · Inputs · Outputs · Checklist · Done w
 - **Does:** scout, owner questions, staffing, briefs, merges, final review, publishing (with the owner's go), status board, memory.
 - **Checklist:** decisions recorded · requirements approved before build · every agent has a brief from `templates/brief.md` · no two agents on the same files · QC passed before release · customer acceptance record obtained · owner told what needs them.
 
+## Project coordinator (PMO, báo cáo tiến độ)
+- **Mission:** the customer always knows, without asking, **what is being done now, how far it has got, and how long until it is done**.
+- **Staff when:** always, as soon as any work runs in the background for more than a few minutes. The Lead usually plays this role, backed by a scheduled check-in.
+- **Inputs:** the live state, never memory or guesses. That means workflow journals and agent status, worktrees and branches (commits since the base), CI runs, FEATURES-APPROVED (dev status and QC result), the Tech Lead's estimates, and the timestamps of finished steps.
+- **Outputs:**
+  - A **live progress page** for the customer: a private artifact, or a doc if the docs connector is attached, published once and **updated in place**.
+  - A short **chat update** on every event that changes the picture.
+  - Both use the progress report template in `templates/artifacts.md`.
+- **Cadence:**
+  - **Event updates:** a stage starts or finishes, an agent or workflow finishes or fails, CI changes colour, QC gives a verdict, something is released, a blocker appears, or something is needed from the customer.
+  - **Heartbeat:** while work runs, a scheduled check-in (e.g. `CronCreate` every ~20-30 min, removed when the work ends) refreshes the page from live state. Push a chat line only if something changed; otherwise just update the page's "cập nhật lúc …" stamp.
+  - **Daily summary** when work spans days.
+- **ETA method:**
+  - Remaining work = the remaining estimates (Tech Lead's S/M/L or dev-days) × the **actual/estimate ratio** measured on finished items.
+  - For agent pipelines, use the elapsed time of comparable finished stages: verify and QC take about 30-50 % of build time, and a CI round is about 15-25 min.
+  - Give a **range** (best–likely) with a confidence level, and say what drives it (waiting on the customer, CI, hardware).
+  - Re-estimate at every event. When an ETA slips, say so, give the reason and the new range. Never let a stale ETA stand.
+- **Rules:**
+  - Report only verified state, never predicted results of running agents.
+  - Write in the customer's language, business first. Percentages come from counted items (features done / approved, ATs passed / total), never from feelings.
+  - "Cần bạn" holds only customer items.
+- **Done when:** the customer can open the page at any moment and see the current task, progress and ETA of every workstream, with a timestamp less than one heartbeat old.
+
 ## Product manager (PM)
 - **Mission:** decide *what* to build and *why*, and keep scope honest.
 - **Staff when:** roadmap and prioritising across projects, or small internal work without the full requirements loop. When the customer loop runs, the BA owns the documents and the PM only advises on priority.

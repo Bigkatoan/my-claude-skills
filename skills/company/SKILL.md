@@ -1,6 +1,6 @@
 ---
 name: company
-description: Run work like a full company of agents (leadership, PM, BA, SA, Tech Lead, UX/UI, CX, content, backend, frontend, data/ML, integrator, DevOps/SRE, QA, QC, security, performance, a11y, marketing, sales, support, legal, finance, operations, docs/release). Treats the user as the customer - a BA clarifies requirements in a loop (Customer -> BA -> Tech Lead + SA -> BA -> Customer) until the customer approves BRD, SRS, architecture, acceptance document and the approved feature list; then builds in parallel worktrees, QC tests every approved feature (failing ones are not shipped), and the customer signs acceptance. Use when the user says "company", "/company", "chia role", "lập team", "giao việc", "QC", "BA", "SA", "BRD", "SRS", "nghiệm thu", "làm rõ yêu cầu", "multi agent", "làm song song", or hands over a product, feature, audit, launch or release too big for one agent.
+description: Run work like a full company of agents (leadership, PM, BA, SA, Tech Lead, UX/UI, CX, content, backend, frontend, data/ML, integrator, DevOps/SRE, QA, QC, security, performance, a11y, marketing, sales, support, legal, finance, operations, docs/release). Treats the user as the customer - a BA clarifies requirements in a loop (Customer -> BA -> Tech Lead + SA -> BA -> Customer) until the customer approves BRD, SRS, architecture, acceptance document and the approved feature list; then builds in parallel worktrees, QC tests every approved feature (failing ones are not shipped), the customer signs acceptance, and a project coordinator keeps a live progress page (what is being done, how far, ETA). Use when the user says "company", "/company", "chia role", "lập team", "giao việc", "QC", "BA", "SA", "BRD", "SRS", "nghiệm thu", "làm rõ yêu cầu", "multi agent", "làm song song", "báo cáo tiến độ", "đến đâu rồi", or hands over a product, feature, audit, launch or release too big for one agent.
 ---
 
 # Company mode
@@ -12,7 +12,7 @@ Invoking this skill is the user's opt-in to multi-agent work: use the Agent tool
 ## Files in this skill
 | File | Use it for |
 |---|---|
-| `roles/leadership-product.md` | Owner, Lead, PM, BA, UX/UI designer, CX researcher, content/localisation |
+| `roles/leadership-product.md` | Owner, Lead, Project coordinator (progress reporting), PM, BA, UX/UI designer, CX researcher, content/localisation |
 | `roles/engineering.md` | Solution architect (SA), Tech Lead, build-contract architect, backend, frontend, mobile, data/ML, integrator, DevOps/SRE, DBA/migration, hardware/embedded |
 | `roles/quality.md` | QA, QC, security, performance, accessibility, UAT/field test |
 | `roles/business.md` | Marketing/SEO, sales, customer support, legal/compliance, finance/pricing, operations/supply |
@@ -67,6 +67,10 @@ Read the role cards you staff (only those) before writing their briefs: each car
 - Reuse an agent via SendMessage for follow-ups on its own work instead of briefing a new one. Don't redo a delegated check yourself while it runs.
 
 ## Owner communication
+- **Progress reporting is continuous** (role card: Project coordinator in `roles/leadership-product.md`).
+  - When background work starts, publish or refresh the **live progress page** and schedule a heartbeat check-in (`CronCreate`, ~every 20-30 min, deleted when the work ends).
+  - On every event (stage start/finish, agent done or failed, CI colour, QC verdict, release, blocker), update the page and post a 2-4 line chat update: what is happening now, how far it has got (counted), the ETA range, and what is needed from the customer.
+  - The customer should never have to ask "đến đâu rồi".
 - Status questions ("đến đâu rồi", "status?") → check live state (team branches, worktrees, CI, workflow journal) and answer with the **status board** from `templates/artifacts.md`: one table (Phần | Trạng thái: Xong / Đang làm / Chưa tới lượt / Cần bạn), then "Cần bạn" items and the next step. Never predict a running agent's result.
 - After a delivery: what the owner can do now, proof (links, screenshot paths), what's left, defaults to confirm, risks. Business language first; code names in backticks.
 - Keep a short running list of customer decisions pending (customer calls only) and repeat it when it changes. "Cần bạn" never contains internal management items.

@@ -75,5 +75,20 @@ Audience · promise · channels + dates · assets (copy, images, video) · landi
 **Cần bạn:** 1. … 2. …  
 **Tiếp theo:** <one line>
 
+## Progress report (Project coordinator → customer; live page + chat)
+```
+Cập nhật lúc <HH:MM dd/mm> · tổng thể <x>% (<done>/<total> <unit: tính năng / bài nghiệm thu / bước>) · dự kiến xong <range> (độ tin cậy <cao/vừa/thấp>)
+```
+| Mảng việc | Đang làm gì (ngay lúc này) | Tiến độ (đếm được) | Dự kiến xong | Trạng thái |
+|---|---|---|---|---|
+| <workstream> | <current step, who> | <3/7 bước · 12/44 tính năng> | <time range> | Đúng hạn / Chậm (lý do) / Bị chặn (bởi gì) / Xong |
+
+**Vừa xong:** <last 3 events with time>  
+**Tiếp theo:** <next step + when>  
+**Rủi ro / thay đổi dự kiến:** <ETA changes with reason>  
+**Cần bạn:** <customer items only, or "không có">
+
+Chat version: 2-4 lines (now · progress · ETA · cần bạn).
+
 ## Retro (Lead)
 Keep · Change · Try next time · Memory updated (yes/no, what).

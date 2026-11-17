@@ -1,6 +1,7 @@
 // Company pipeline template: contract -> parallel builders -> integrator -> verifiers.
 // Copy into the Workflow tool's `script` (plain JS), fill the CAPS parts. Load `workflow-authoring` first.
 // Run only AFTER the customer approved the requirement set (requirements.md); give agents docs/requirements/*.
+// Progress: call log() at every stage boundary; the Project coordinator reads the journal + git/CI to refresh the live progress page.
 export const meta = {
   name: 'company-feature',
   description: 'Architect contract, parallel builder teams, integrator, safety + UI verifiers',
