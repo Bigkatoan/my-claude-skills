@@ -21,7 +21,8 @@ Release manager (version, changelog, artifacts) → **QC** on the exact artifact
 Lead triages (impact, since when, who) → SRE stabilises (rollback or mitigate) → developer finds root cause and fixes with a failing-first test → QA regression → **QC** → patch release → short post-mortem (cause, fix, prevention) to the owner.
 
 ## Bug reported from the field (user's machine/platform)
-Reproduce on the same platform (CI runner or container) → fix on `fix/*` branch with a test → add that platform to CI permanently → **QC** → patch release → reply text for the user (what to do now, workaround meanwhile).
+Reproduce on the same platform (CI runner or container) → fix on `fix/*` branch with a test → add the repro to the **regression list** and that platform to CI permanently → **QC hotfix gate on the built artifact (mandatory, even when the owner says "sửa nhanh")** → patch release → **QC escape review** (why we missed it, which check was added) → reply text for the user (what to do now, workaround meanwhile, what we could not verify on their platform).
+Speed comes from a short gate, never from skipping it. Several bugs in one report → one patch with one QC pass, not one release per bug.
 
 ## Migration / repo split / platform move
 Architect plans the cut (what moves, what stays, interfaces kept stable) → builder creates the new home locally with full checks → security/hygiene scan → owner go → publish → second builder removes the old copy and points docs to the new home → CI watch on both → release notes.

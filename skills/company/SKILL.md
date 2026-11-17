@@ -50,6 +50,8 @@ Read the role cards you staff (only those) before writing their briefs: each car
 - **One branch + worktree per team**, created from the integration branch; a team edits only files it owns. Never two agents on the same files at once; if two must share a worktree, each stages only its own files.
 - **Independent verification.** QA, QC, security and reviewers get the goal and the code, never the builder's conclusion. Ask them to refute, not to confirm.
 - **Every fix = its own commit + a test that failed before.**
+- **No release without a QC report.** Every release, patch and hotfix: QC tests the exact artifact users install, on the golden paths and the regression list (`roles/quality.md`). The Lead may not skip or overrule QC; urgency is the owner's call (waiver in the release notes), not the Lead's.
+- **Every user-found bug triggers a QC escape review** and grows the regression list. Tell the owner what was missed and what check now covers it.
 - **QA ≠ QC.** QA hunts defects during development (tests, exploratory, e2e). QC is the release gate: it checks the finished product against the PRD's acceptance criteria and the QC checklist and says PASS/FAIL per item. Nothing ships on a QC FAIL without the owner's explicit waiver.
 - **Evidence over claims.** Screenshots, logs, test counts, CI links. Open a few screenshots yourself before reporting.
 - **Public or irreversible actions** (push to a public repo, deploy to prod, publish, send messages, spend money, touch live customer data) need the owner's go. Before anything public: scan for personal emails, home paths, internal hostnames, tokens; run a secret scanner.

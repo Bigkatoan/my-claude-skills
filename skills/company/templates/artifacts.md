@@ -42,7 +42,22 @@ Exit criteria: all criteria covered, no open critical/high defects
 | 9 | No secrets, personal data, internal hostnames in public artifacts; licences/attribution present | | |
 | 10 | Backup + rollback path exists and was tested | | |
 | 11 | Monitoring/health check covers the new parts | | |
+| 12 | Installed fresh from the released artifact with the user's command, on each target OS (else NOT VERIFIED) | | |
+| 13 | Every golden path done by hand on the installed artifact | | |
+| 14 | Recovery paths: stop/e-stop → continue, unplug/replug, reload mid-flow, wrong step order, rerun after failure | | |
+| 15 | Regression list (all past field bugs) re-run | | |
+| 16 | Every number/unit/label the user sees is plausible | | |
+| 17 | NOT VERIFIED items listed with what the user must test | | |
 Verdict: PASS / FAIL (blocking items) / PASS with owner waivers (list).
+
+## Golden paths + regression list (QC owns, per product, kept in the repo e.g. `docs/qc/`)
+```
+GP-1 <journey>: step → expected · step → expected ...   (platform, stand-in used)
+REG-<n> <field bug title> (vX.Y.Z, reported <date>): repro steps → expected now
+```
+
+## Escape review (QC, after each user-found bug)
+Bug · version shipped · which GP/REG/check should have caught it · why missed (not run / mock only / platform / check missing / Lead skipped QC) · check added (id) · owner told (yes).
 
 ## Release checklist (release manager)
 Version bumped everywhere · lockfiles · changelog · QC PASS · tag (owner go) · artifacts per platform · visibility of packages/images · release notes (changes, upgrade, known issues, rollback) · post-release smoke on released artifact · CI watched to green.
